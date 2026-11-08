@@ -74,8 +74,6 @@ export function activeGroup(nodes: readonly Node[]): string | undefined {
 	)?.name;
 }
 
-const dim = (text: string) => `\x1b[2m${text}\x1b[22m`;
-
 /**
  * Draws the list the way claude-todo-tree does:
  *
@@ -85,7 +83,7 @@ const dim = (text: string) => `\x1b[2m${text}\x1b[22m`;
  *   └─ ☐ テスト
  */
 export function renderTree(list: readonly Todo[], theme: ThemeLike): string[] {
-	const done = (text: string) => theme.fg("success", dim(theme.strikethrough(text)));
+	const done = (text: string) => theme.fg("dim", theme.strikethrough(text));
 	const active = (text: string) => theme.fg("borderAccent", theme.bold(text));
 	const muted = (text: string) => theme.fg("dim", text);
 

@@ -23,7 +23,7 @@ TODO · 2/6
 ```
 
 - `set_todos` ツールを追加する。モデルは毎回リスト全体を渡して置き換える
-- 入力欄の上のウィジェットにツリーを描く。完了は緑の打ち消し線、作業中はアクセント色の太字
+- 入力欄の上のウィジェットにツリーを描く。完了は灰色の打ち消し線、作業中はアクセント色の太字
 - `group` が同じ項目は親の見出しの下にまとめ、作業中の親（なければ最初の未完了の親）だけ子を展開する
 - 複数ステップの実装を始めるときにモデルが自分から `set_todos` を呼ぶよう、システムプロンプトに `<todo_tree>` セクションを足す（pi-claude-bridge 経由でも届く経路）
 - TODO はツール結果の `details` に保存するので、resume・fork・`/tree` で今のブランチの状態に戻る
@@ -38,7 +38,7 @@ TODO · 2/6
 pi install git:github.com/uta-a/pi-claude-todo
 ```
 
-バージョンを固定する場合は `pi install git:github.com/uta-a/pi-claude-todo@v0.1.0`。更新は `pi update --extensions`。
+バージョンを固定する場合は `pi install git:github.com/uta-a/pi-claude-todo@v0.1.1`。更新は `pi update --extensions`。
 
 一度だけ試す場合は、clone して `pi -e ./extension/index.ts`。
 

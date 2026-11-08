@@ -7,7 +7,6 @@ import { parseList, renderTree, type ThemeLike } from "../extension/todos.ts";
 const plain = process.argv.includes("--plain");
 
 const COLORS: Record<string, string> = {
-	success: "\x1b[38;2;78;186;101m",
 	dim: "\x1b[38;2;153;153;153m",
 	borderAccent: "\x1b[38;2;215;119;87m",
 };
