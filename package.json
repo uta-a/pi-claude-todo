@@ -1,0 +1,41 @@
+{
+  "name": "pi-claude-todo",
+  "version": "0.1.0",
+  "description": "claude-todo-tree style TODO tree above the pi editor (TODO · 1/3 / ├─ ☑︎ / ▶︎ / ☐)",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uta-a/pi-claude-todo.git"
+  },
+  "homepage": "https://github.com/uta-a/pi-claude-todo#readme",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "todo",
+    "claude-code",
+    "tui"
+  ],
+  "files": [
+    "extension",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.ts",
+    "preview": "node test/preview.ts"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
+  },
+  "pi": {
+    "extensions": [
+      "./extension/index.ts"
+    ]
+  }
+}
