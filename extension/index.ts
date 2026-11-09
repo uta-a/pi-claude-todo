@@ -4,7 +4,8 @@
  * Claude Code.
  *
  * - Registers a `set_todos` tool that replaces the whole list
- * - Draws it in an above-editor widget and hides it once everything is done
+ * - Draws it in an above-editor widget and keeps it after everything is done,
+ *   until a new list replaces it or an empty list clears it
  * - Items with a `group` are shown under one parent; only the active parent expands
  * - Adds a system prompt section asking the model to keep the list current
  * - State lives in the tool result details, so resume, fork and /tree restore it
@@ -20,7 +21,7 @@ const TOOL_NAME = "set_todos";
 const WIDGET_KEY = "claude-todo";
 const SECTION = "todo_tree";
 
-const GUIDANCE = `When you start implementation work of more than one step in the main conversation, call ${TOOL_NAME} before your first edit, listing the steps. Use it in preference to any other TODO tool. Group the steps with group when they fall into phases. Call it again whenever a step starts or finishes, so the list stays current. Mark as in_progress only the step you are working on right now, which is normally exactly one: when you write several steps in one go, still mark them one at a time, and leave the rest pending. Mark several only while they really run at the same time, such as parallel subagents. Skip it for questions, research, and single small edits. Subagents do not call it.`;
+const GUIDANCE = `When you start implementation work of more than one step in the main conversation, call ${TOOL_NAME} before your first edit, listing the steps. Use it in preference to any other TODO tool. Group the steps with group when they fall into phases. Call it again whenever a step starts or finishes, so the list stays current. Mark as in_progress only the step you are working on right now, which is normally exactly one: when you write several steps in one go, still mark them one at a time, and leave the rest pending. Mark several only while they really run at the same time, such as parallel subagents. Skip it for questions, research, and single small edits. Subagents do not call it. When every step is done, leave the completed list as it is; it stays on screen. Call ${TOOL_NAME} with an empty list only when the user asks to clear it. For new multi-step work, pass the new list, which replaces the old one.`;
 
 interface TodoDetails {
 	todos: Todo[];
@@ -99,7 +100,7 @@ export default function (pi: ExtensionAPI) {
 		name: TOOL_NAME,
 		label: "Update Todos",
 		description:
-			"Replace the TODO list shown above the prompt. Pass the whole list every time, with the current status of every item. Only a step being worked on right now is in_progress, normally exactly one. Give items the same group to show them under one parent heading; only the group being worked on is expanded.",
+			"Replace the TODO list shown above the prompt. Pass the whole list every time, with the current status of every item. Only a step being worked on right now is in_progress, normally exactly one. Give items the same group to show them under one parent heading; only the group being worked on is expanded. The list stays on screen after every item is completed; pass an empty list only when the user asks to clear it.",
 		promptSnippet: "Show and update the TODO list above the prompt",
 		parameters: params,
 		executionMode: "sequential",

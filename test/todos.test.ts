@@ -51,9 +51,9 @@ test("without in_progress the first unfinished group opens", () => {
 	assert.equal(activeGroup(toTree(list)), "B");
 });
 
-test("hidden when empty or all completed", () => {
+test("hidden only when empty, kept when all completed", () => {
 	assert.equal(isVisible([]), false);
-	assert.equal(isVisible([{ text: "a", status: "completed" }]), false);
+	assert.equal(isVisible([{ text: "a", status: "completed" }]), true);
 	assert.equal(isVisible([{ text: "a", status: "pending" }]), true);
 });
 

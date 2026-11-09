@@ -27,7 +27,7 @@ TODO · 2/6
 - `group` が同じ項目は親の見出しの下にまとめ、作業中の親（なければ最初の未完了の親）だけ子を展開する
 - 複数ステップの実装を始めるときにモデルが自分から `set_todos` を呼ぶよう、システムプロンプトに `<todo_tree>` セクションを足す（pi-claude-bridge 経由でも届く経路）
 - TODO はツール結果の `details` に保存するので、resume・fork・`/tree` で今のブランチの状態に戻る
-- すべて完了するか、リストが空になると表示を消す
+- すべて完了しても表示を残す。新しいリストを渡すと置き換わり、空のリストを渡すと消える（モデルはユーザーに頼まれたときだけ空にする）
 - pi-subagents の子プロセス（`PI_SUBAGENT_CHILD` / `PI_SUBAGENT_PARENT_SESSION`）では何もしない
 
 会話中のツール行は `Update Todos · 1/3` の 1 行で、展開（ctrl+o）するとツリーを出します。
@@ -49,5 +49,5 @@ npm test                     # node --test（Node 22.6+ の型ストリップで
 npm run preview              # サンプルを端末に描画
 node test/integration.ts ~/.pi/agent/install/releases/<ver>/node_modules/@earendil-works/pi-coding-agent
                              # pi の AgentSession と faux モデルで、ツール呼び出し・ウィジェット・
-                             # プロンプトセクション・ブランチ復元・完了時の非表示を検証
+                             # プロンプトセクション・ブランチ復元・完了後の表示維持・空リストでの非表示を検証
 ```

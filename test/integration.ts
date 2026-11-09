@@ -104,7 +104,7 @@ widgets.clear();
 await session.extensionRunner.emit({ type: "session_tree" });
 assert.deepEqual(drawWidget(60), lines);
 
-// Completing everything hides the widget
+// Completing everything keeps the widget
 faux.setResponses([
 	step([
 		{ content: "調査", status: "completed" },
@@ -114,6 +114,11 @@ faux.setResponses([
 	ai.fauxAssistantMessage("done"),
 ]);
 await session.prompt("続けて");
+assert.deepEqual(drawWidget(60), [" TODO · 3/3", " ├─ ☑︎ 調査", " └─ 本体 · 2/2"]);
+
+// An empty list clears it
+faux.setResponses([step([]), ai.fauxAssistantMessage("done")]);
+await session.prompt("TODO を消して");
 assert.equal(widgets.has("claude-todo"), false);
 
 session.dispose();

@@ -39,8 +39,8 @@ export function parseList(raw: unknown): Todo[] | string {
 
 export const countDone = (list: readonly Todo[]) => list.filter((t) => t.status === "completed").length;
 
-/** The widget is shown only while something is left to do. */
-export const isVisible = (list: readonly Todo[]) => list.length > 0 && countDone(list) < list.length;
+/** The widget stays up, even once everything is done, until the list is replaced or cleared. */
+export const isVisible = (list: readonly Todo[]) => list.length > 0;
 
 type Node = { kind: "item"; todo: Todo } | { kind: "group"; name: string; items: Todo[] };
 
